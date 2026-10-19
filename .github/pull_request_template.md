@@ -1,7 +1,6 @@
    ## say wut the pull does
    <!-- summary! -->
-   ##Related issue
+   ## Related issue
    Closes #
-
    ## Checklist
    - [ ] I tested this change
