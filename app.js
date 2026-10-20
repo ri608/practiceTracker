@@ -9,10 +9,11 @@ const assignments = [
 function render() {
   const container = document.getElementById("assignment-list");
   container.innerHTML = "";
+  const today = new Date().toISOString().slice(0, 10);
 
   const table = document.createElement("table");
   const header = table.insertRow();
-  ["Course", "Assignment", "Due", "Done"].forEach((text) => {
+  ["Done", "Course", "Assignment", "Due"].forEach((text) => {
     const th = document.createElement("th");
     th.textContent = text;
     header.appendChild(th);
@@ -20,13 +21,35 @@ function render() {
 
   assignments.forEach((a) => {
     const row = table.insertRow();
+    if (!a.completed && a.due < today) row.classList.add("overdue");
+
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.checked = a.completed;
+    box.addEventListener("change", () => {
+      a.completed = box.checked;
+      render();
+    });
+    row.insertCell().appendChild(box);
+
     row.insertCell().textContent = a.course;
     row.insertCell().textContent = a.title;
     row.insertCell().textContent = a.due;
-    row.insertCell().textContent = a.completed ? "Yes" : "No";
   });
 
   container.appendChild(table);
 }
+
+document.getElementById("add-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  assignments.push({
+    course: document.getElementById("course").value.trim(),
+    title: document.getElementById("title").value.trim(),
+    due: document.getElementById("due").value,
+    completed: false,
+  });
+  e.target.reset();
+  render();
+});
 
 render();
