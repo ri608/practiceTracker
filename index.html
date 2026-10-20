@@ -8,9 +8,14 @@
 </head>
 <body>
   <h1>Assignment Tracker</h1>
-  <main id="assignment-list">
-    <!-- assignments!! -->
-  </main>
+  <form id="add-form">
+    <input id="course" placeholder="Course (e.g. CSE 100)" required>
+    <input id="title" placeholder="Assignment" required>
+    <input id="due" type="date" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <main id="assignment-list"></main>
   <script src="app.js"></script>
 </body>
 </html>
